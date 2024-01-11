@@ -1,18 +1,35 @@
-name: Node.js CI
+name: Node.js Build and Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [20.9.0]  # Use the desired Node.js version
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
