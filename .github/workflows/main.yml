@@ -28,11 +28,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Jest globally
-        run: npm install -g jest
-
       - name: Build
         run: npm run build
 
       - name: Run tests
-        run: npm test
+        run: npx jest
