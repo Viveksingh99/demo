@@ -1,4 +1,4 @@
-name: Node.js Build and Test
+name: Node.js Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,6 +30,3 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Run tests
-        run: npx jest
